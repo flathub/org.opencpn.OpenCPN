@@ -144,7 +144,7 @@ modules:
       buildsystem: cmake
       builddir: true
       config-opts:
-          - -DOCPN_RELEASE=3
+          - -DOCPN_RELEASE=0
           - -DOCPN_BUNDLE_DOCS=ON
           - -DOCPN_BUNDLE_TCDATA=ON
           - -DOCPN_CI_BUILD=ON
@@ -168,8 +168,8 @@ modules:
       sources:
           - type: git
             url: https://github.com/OpenCPN/OpenCPN.git
-            tag: Release_5.10.0
-            # commit: b2dfeef58f8845ffadd231875a1576df24917759
+            #tag: Beta_5.7.1_RC2
+            commit: 8c14bbbae8de544796f5c489359a6433dc3268ec
             disable-fsckobjects: true
           - type: patch
             paths:
