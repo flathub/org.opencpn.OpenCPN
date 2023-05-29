@@ -24,6 +24,7 @@ finish-args:
     - --filesystem=home
     - --share=network
     - --device=all
+    - --allow=canbus
 
 add-extensions:
     org.opencpn.OpenCPN.Plugin:
@@ -118,7 +119,7 @@ modules:
       buildsystem: cmake
       builddir: true
       config-opts:
-          - -DOCPN_RELEASE=0
+          - -DOCPN_RELEASE=1
           - -DOCPN_BUNDLE_DOCS=ON
           - -DOCPN_BUNDLE_TCDATA=ON
           - -DOCPN_CI_BUILD=ON
