@@ -25,7 +25,7 @@ finish-args:
     - --share=ipc
     - --share=network
     - --device=all
-    - --allow=canbus
+    #- --allow=canbus
 
 add-extensions:
     org.opencpn.OpenCPN.Plugin:
