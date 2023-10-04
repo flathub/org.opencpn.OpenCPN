@@ -119,7 +119,7 @@ modules:
       buildsystem: cmake
       builddir: true
       config-opts:
-          - -DOCPN_RELEASE=1
+          - -DOCPN_RELEASE=2
           - -DOCPN_BUNDLE_DOCS=ON
           - -DOCPN_BUNDLE_TCDATA=ON
           - -DOCPN_CI_BUILD=ON
@@ -149,3 +149,4 @@ modules:
           - type: patch
             paths:
               - patches/0002-flatpak-Add-a-shell-wrapper.patch
+              - patches/0003-grib_pi-Fix-shell-syntax-invoking-xdg-email-3445.patch
