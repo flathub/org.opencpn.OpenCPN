@@ -151,3 +151,4 @@ modules:
             paths:
               - patches/0002-flatpak-Add-a-shell-wrapper.patch
               - patches/0003-grib_pi-Fix-shell-syntax-invoking-xdg-email-3445.patch
+              - patches/0004-opencpn.appdata-Add-missing-tag-3626.patch
