@@ -102,9 +102,9 @@ modules:
           - type: archive
             url: https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.4/wxWidgets-3.2.4.tar.bz2
             sha256: 0640e1ab716db5af2ecb7389dbef6138d7679261fbff730d23845ba838ca133e
-          - type: patch
-            paths:
-              - patches/0101-Support-EGL-1.4-on-wxGTK.patch
+          #- type: patch
+          #  paths:
+          #    - patches/0101-Add-wxDEPRECATED_EXPORT_CORE-macro-for-wxTransformMa.patch
       config-opts:
           - --with-gtk=3
           - --with-opengl
@@ -165,10 +165,9 @@ modules:
       sources:
           - type: git
             url: https://github.com/OpenCPN/OpenCPN.git
-            tag: Release_5.8.4
-            #commit: 33f6b9790803da0600b78c5f412cf68a35061e20
+            # tag: Release_5.8.4
+            commit: a4e630be83429e8f5b666db040cd79d8aa75a992
             disable-fsckobjects: true
           - type: patch
             paths:
               - patches/0002-flatpak-Add-a-shell-wrapper.patch
-              - patches/0003-grib_pi-Fix-shell-syntax-invoking-xdg-email-3445.patch
