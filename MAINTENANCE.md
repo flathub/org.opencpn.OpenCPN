@@ -2,7 +2,7 @@ Making a new release
 --------------------
 
    1. Clone this repo
-   2. Checkout correct branch, _stable_ or _beta_
+   2. Checkout correct branch, _master_ or _beta_
    3. Patch the manifest to refer to the proper OpnCPN commit, something
       like
 ```
@@ -20,15 +20,18 @@ Making a new release
 ```
    4. Update the manifest's OCPN\_RELEASE option to reflect actual release
       (set to 0 when there is a new commit or tag as of above).
-   5. Commit and push the change
-   6. Go to https://flathub.org/builds. The build starts automatically
-      after the push and takes around 15 minutes.
-   7. Using the login drop-down top-right, login using "Login with Github"
-   8. If the build fails, it must be fixed... edit, commit and push again.
+   5. Commit and push the change to a private fork of flathub/org.opencpn.OpenCPN.
+   6. Make PR from the private fork to flathub/org.opencpn.OpenCPN.
+   7. Open the PR at https://github.com/flathub/org.opencpn.OpenCPN. A test build
+      starts, wait until it's ready.
+   8. If the build fails, it must be fixed... edit, commit and PR again.
       Build logs ar available after pushing the leftmost, 5-digit build
       number button
-   9. When the build is OK, the build number button becomes green. Push it.
-  10. The view of the build contains
+   9. When build is OK, merge the PR.
+  10. Go to https://flathub.org/builds. The build starts automatically
+      after merging the PR  and takes around 15 minutes.
+  11. Using the login drop-down top-right, login using "Login with Github"
+  12. The view of the build contains
         - A link to the test repo at bottom. Make a smoke test to make sure
           it is sane
         - Three buttons top-right Rebuild, Publish, Delete. If the build is
