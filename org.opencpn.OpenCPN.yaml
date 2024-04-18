@@ -166,7 +166,7 @@ modules:
           - type: git
             url: https://github.com/OpenCPN/OpenCPN.git
             # tag: Release_5.8.4
-            commit: a4e630be83429e8f5b666db040cd79d8aa75a992
+            commit: 5ab4db03b4441a0f732e00580568753c5758b0b9
             disable-fsckobjects: true
           - type: patch
             paths:
