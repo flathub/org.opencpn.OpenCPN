@@ -1,5 +1,5 @@
 diff --git a/resources/opencpn.appdata.xml.in b/resources/opencpn.appdata.xml.in
-index 8ed891938..b37606813 100644
+index 8ed891938..2e5627299 100644
 --- a/resources/opencpn.appdata.xml.in
 +++ b/resources/opencpn.appdata.xml.in
 @@ -5,8 +5,10 @@
@@ -8,8 +8,8 @@ index 8ed891938..b37606813 100644
    <name>OpenCPN</name>
 -  <developer_name>The OpenCPN Community</developer_name>
 -  <summary>A concise Chartplotter and Navigation software</summary>
-+  <developer>
-+    <name>The OpenCPN Community</name>
++  <developer id="org.opencpn.OpenCPN">
++      <name>The OpenCPN Community</name>
 +  </developer>
 +  <summary>Chartplotter and Navigation tool</summary>
    <summary xml:lang="sv">Kartplotter och navigationsprogram</summary>
