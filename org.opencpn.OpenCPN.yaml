@@ -26,6 +26,9 @@ finish-args:
     - --share=network
     - --device=all
     - --allow=canbus
+    - --system-talk-name=org.freedesktop.systemd1
+    - --system-talk-name=org.freedesktop.login1
+
 
 add-extensions:
     org.opencpn.OpenCPN.Plugin:
