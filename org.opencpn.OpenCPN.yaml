@@ -168,7 +168,7 @@ modules:
       sources:
           - type: git
             url: https://github.com/OpenCPN/OpenCPN.git
-            tag: v5.9.4-beta4
+            tag: Release_5.10.0
             # commit: b2dfeef58f8845ffadd231875a1576df24917759
             disable-fsckobjects: true
           - type: patch
