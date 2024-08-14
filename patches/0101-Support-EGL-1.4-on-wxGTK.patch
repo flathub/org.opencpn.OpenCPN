@@ -14,12 +14,13 @@ Bug: https://github.com/wxWidgets/wxWidgets/issues/22325#issuecomment-2182213693
 ---
  src/unix/glegl.cpp | 53 ++++++++++++++++++++++++++++++++++++++++------
  1 file changed, 47 insertions(+), 6 deletions(-)
+---
 
 diff --git a/src/unix/glegl.cpp b/src/unix/glegl.cpp
-index 7407a9f85700..91be1c145dba 100644
+index 9e1b6b7..7838852 100644
 --- a/src/unix/glegl.cpp
 +++ b/src/unix/glegl.cpp
-@@ -551,6 +551,27 @@ bool wxGLCanvasEGL::CreateSurface()
+@@ -552,6 +552,27 @@ bool wxGLCanvasEGL::CreateSurface()
          return false;
      }
  
@@ -47,7 +48,7 @@ index 7407a9f85700..91be1c145dba 100644
      GdkWindow *window = GTKGetDrawingWindow();
  #ifdef GDK_WINDOWING_X11
      if (wxGTKImpl::IsX11(window))
-@@ -562,8 +583,18 @@ bool wxGLCanvasEGL::CreateSurface()
+@@ -563,8 +584,18 @@ bool wxGLCanvasEGL::CreateSurface()
          }
  
          m_xwindow = GDK_WINDOW_XID(window);
@@ -68,7 +69,7 @@ index 7407a9f85700..91be1c145dba 100644
      }
  #endif
  #ifdef GDK_WINDOWING_WAYLAND
-@@ -594,8 +625,18 @@ bool wxGLCanvasEGL::CreateSurface()
+@@ -595,8 +626,18 @@ bool wxGLCanvasEGL::CreateSurface()
          wl_surface_set_buffer_scale(m_wlSurface, scale);
          m_wlEGLWindow = wl_egl_window_create(m_wlSurface, w * scale,
                                               h * scale);
@@ -89,7 +90,7 @@ index 7407a9f85700..91be1c145dba 100644
  
          // We need to use "map-event" instead of "map" to ensure that the
          // widget's underlying Wayland surface has been created.
-@@ -722,12 +763,12 @@ EGLConfig *wxGLCanvasEGL::InitConfig(const wxGLAttributes& dispAttrs)
+@@ -723,12 +764,12 @@ EGLConfig *wxGLCanvasEGL::InitConfig(const wxGLAttributes& dispAttrs)
      }
  
      // The runtime EGL version cannot be known until EGL has been initialized.
@@ -104,4 +105,3 @@ index 7407a9f85700..91be1c145dba 100644
              eglMajor, eglMinor));
          return NULL;
      }
-
