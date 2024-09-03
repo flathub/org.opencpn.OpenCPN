@@ -1,0 +1,105 @@
+From 73be561365e3d87c0796703ae7394ebb656d82a6 Mon Sep 17 00:00:00 2001
+From: Dave <bdbcat@yahoo.com>
+Date: Sat, 31 Aug 2024 15:40:58 -0400
+Subject: [PATCH] Implement mutex access to MBTiles cache structure.
+
+---
+ gui/src/mbtiles/TileCache.hpp    | 31 +++++++++++++++++--------------
+ gui/src/mbtiles/WorkerThread.cpp |  7 +++++++
+ 2 files changed, 24 insertions(+), 14 deletions(-)
+
+diff --git a/gui/src/mbtiles/TileCache.hpp b/gui/src/mbtiles/TileCache.hpp
+index 658f6b655..c63cb47b8 100644
+--- a/gui/src/mbtiles/TileCache.hpp
++++ b/gui/src/mbtiles/TileCache.hpp
+@@ -2,6 +2,7 @@
+ #define _TILECACHE_H_
+ 
+ #include "TileDescriptor.hpp"
++#include <mutex>
+ 
+ /// @brief Class managing the tiles of a mbtiles file
+ class TileCache {
+@@ -46,6 +47,15 @@ class TileCache {
+ 
+   virtual ~TileCache() { delete[] zoomTable; }
+ 
++  /// Return mutex to lock given tile. There is a fixed number of mutexes
++  /// available, the mutex returned might collide with another id causing
++  /// random serialization.
++  static std::mutex &GetMutex(uint64_t tile_id) {
++    static const int kMutexCount = 100;
++    static std::array<std::mutex, kMutexCount> mutexes;
++    return mutexes[tile_id % kMutexCount];
++  }
++
+   /// @brief Flush the tile cache, including OpenGL texture memory if needed
+   void Flush() {
+     for (auto const &it : tileMap) {
+@@ -109,23 +119,16 @@ class TileCache {
+   /// only be called by rendering thread since it uses OpenGL calls.
+   /// @param maxTiles Maximum number of tiles to be kept in the list
+   void CleanCache(uint32_t maxTiles) {
+-    uint64_t index;
++    uint64_t key;
+ 
+     while (listSize > maxTiles) {
+       // List size exceeds the maximum value : delete the last tile of the list
+-      index = mbTileDescriptor::GetMapKey(listEnd->m_zoomLevel, listEnd->tile_x,
+-                                          listEnd->tile_y);
+-      auto ref = tileMap.find(index);
+-      if ((ref->second->m_bAvailable) && (ref->second->m_teximage == 0) &&
+-          (ref->second->glTextureName == 0)) {
+-        // If the tile is currently used by worker thread, we must not delete
+-        // it. Practically, this case is not supposed to happen, unless the
+-        // system is really, really slow. In that case we exit the function and
+-        // wait the next rendering to try again.
+-        break;
+-      }
++      key = mbTileDescriptor::GetMapKey(listEnd->m_zoomLevel, listEnd->tile_x,
++                                        listEnd->tile_y);
++      std::lock_guard lock(TileCache::GetMutex(key));
++      auto ref = tileMap.find(key);
+       // Remove the tile from map and delete it. Tile destructor takes care to
+-      // properly
++      // properly delete associated resources.
+       tileMap.erase(ref);
+       DeleteTileFromList(listEnd);
+     }
+@@ -205,4 +208,4 @@ class TileCache {
+   }
+ };
+ 
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/gui/src/mbtiles/WorkerThread.cpp b/gui/src/mbtiles/WorkerThread.cpp
+index 631ae554e..391ed391e 100644
+--- a/gui/src/mbtiles/WorkerThread.cpp
++++ b/gui/src/mbtiles/WorkerThread.cpp
+@@ -1,4 +1,5 @@
+ 
++#include <mutex>
+ #include <wx/thread.h>
+ #include "dychart.h"
+ #include "WorkerThread.hpp"
+@@ -77,6 +78,10 @@ wxThread::ExitCode MbtTilesThread::Entry() {
+   /// @brief Load bitmap data of a tile from the MbTiles file to the tile cache
+   /// @param tile Pointer to the tile to be loaded
+ void MbtTilesThread::LoadTile(mbTileDescriptor *tile) {
++    uint64_t key = mbTileDescriptor::GetMapKey(tile->m_zoomLevel, tile->tile_x,
++                                               tile->tile_y);
++    std::lock_guard lock(TileCache::GetMutex(key));
++
+     // If the tile has not been found in the SQL database in a previous attempt,
+     // don't search for it again
+     if (!tile->m_bAvailable) return;
+@@ -145,6 +150,8 @@ void MbtTilesThread::LoadTile(mbTileDescriptor *tile) {
+         // Copy and process the tile
+         unsigned char *teximage =
+             (unsigned char *)malloc(stride * tex_w * tex_h);
++        if (!teximage) return;
++
+         bool transparent = blobImage.HasAlpha();
+         //  *(int*)0 = 0;  // test exception
+ 

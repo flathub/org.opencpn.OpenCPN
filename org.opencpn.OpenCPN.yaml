@@ -173,8 +173,16 @@ modules:
             disable-fsckobjects: true
           - type: patch
             paths:
+              - patches/0019-Implement-mutex-access-to-MBTiles-cache-structure.patch
+              - patches/0020-MBTiles-improve-tile-memory-management-cacheing-and-.patch
               - patches/0002-flatpak-Add-a-shell-wrapper.patch
               - patches/0003-Build-Don-t-use-march-native-4088.patch
               - patches/0004-VERSION.cmake-Fix-date-string.patch
               - patches/0005-Improve-display-detection-on-headless-X11-systems.patch
               - patches/0006-Explicitly-set-extra-object-info-text-color.4101.patch
+              - patches/0014-AIS-Meteo-Correct-typos-missed-brakes.patch
+              - patches/0015-Improve-conneciton_edit-dialog-layout-for-handheld-P.patch
+              - patches/0016-Correct-faults-on-GRIB-compact-control-bar-display-m.patch
+              - patches/0017-Make-ActivateNextpoint-pass-multiple-identical-point.patch
+              - patches/0018-Update-the-link-to-known-issues-page.-Fixes-4116.patch
+
