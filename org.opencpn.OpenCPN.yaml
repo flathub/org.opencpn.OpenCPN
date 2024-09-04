@@ -28,7 +28,7 @@ finish-args:
     - --allow=canbus
     - --system-talk-name=org.freedesktop.systemd1
     - --system-talk-name=org.freedesktop.login1
-
+    - --filesystem=host-etc:ro
 
 add-extensions:
     org.opencpn.OpenCPN.Plugin:
