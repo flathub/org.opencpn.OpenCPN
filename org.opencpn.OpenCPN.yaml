@@ -53,8 +53,8 @@ modules:
       buildsystem: meson
       sources:
         - type: archive
-          url: https://files.pythonhosted.org/packages/ac/4a/f24ddf1d20cc4b56affc7921e29928559a06c922eb60077448392792b914/PyGObject-3.46.0.tar.gz
-          sha256: 481437b05af0a66b7c366ea052710eb3aacbb979d22d30b797f7ec29347ab1e6
+          url:  https://files.pythonhosted.org/packages/2b/58/d34e67a79631177e3c08e7d02b5165147f590171f2cae6769502af5f7f7e/pygobject-3.50.0.tar.gz
+          sha256: 4500ad3dbf331773d8dedf7212544c999a76fc96b63a91b3dcac1e5925a1d103
 
     - name: python-dbus
       sources:
