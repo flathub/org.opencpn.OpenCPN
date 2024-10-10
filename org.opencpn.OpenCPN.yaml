@@ -26,6 +26,9 @@ finish-args:
     - --share=network
     - --device=all
     - --allow=canbus
+    - --system-talk-name=org.freedesktop.systemd1
+    - --system-talk-name=org.freedesktop.login1
+    - --filesystem=host-etc:ro
 
 add-extensions:
     org.opencpn.OpenCPN.Plugin:
@@ -102,9 +105,9 @@ modules:
           - type: archive
             url: https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.4/wxWidgets-3.2.4.tar.bz2
             sha256: 0640e1ab716db5af2ecb7389dbef6138d7679261fbff730d23845ba838ca133e
-          #- type: patch
-          #  paths:
-          #    - patches/0101-Add-wxDEPRECATED_EXPORT_CORE-macro-for-wxTransformMa.patch
+          - type: patch
+            paths:
+              - patches/0101-Support-EGL-1.4-on-wxGTK.patch
       config-opts:
           - --with-gtk=3
           - --with-opengl
@@ -137,11 +140,32 @@ modules:
             url: https://github.com/google/googletest.git
             tag: release-1.12.1
 
+    - name: iproute2
+      buildsystem: simple
+      build-commands:
+          -  make
+          -  make DESTDIR=/app install
+      sources:
+          - type: archive
+            url:  https://kernel.org/pub/linux/utils/net/iproute2/iproute2-6.6.0.tar.gz
+            sha256: 1e6871720d85461d9f175843fdeb659448cd4f74de180ccc95a6f3b0b7e39f0a
+      cleanup:
+          - /lib/pkgconfig
+          - /include
+          - /share/man
+          - /sbin/*stat
+          - /sbin/bridge
+          - /sbin/genl
+          - /sbin/routel
+          - /sbin/rt*
+          - /sbin/ss
+          - /sbin/tc
+
     - name: opencpn
       buildsystem: cmake
       builddir: true
       config-opts:
-          - -DOCPN_RELEASE=3
+          - -DOCPN_RELEASE=2
           - -DOCPN_BUNDLE_DOCS=ON
           - -DOCPN_BUNDLE_TCDATA=ON
           - -DOCPN_CI_BUILD=ON
@@ -157,7 +181,7 @@ modules:
           cxxflags: -DFLATPAK
           cflags: -DFLATPAK
           env:
-            BUILD_NUMBER: "0"
+            BUILD_NUMBER: "1"
       post-install:
           - install -d /app/extensions
           - sed -i '/^Exec=/s/=.*/=opencpn.sh/' /app/share/applications/opencpn.desktop
@@ -165,8 +189,8 @@ modules:
       sources:
           - type: git
             url: https://github.com/OpenCPN/OpenCPN.git
-            # tag: Release_5.8.4
-            commit: a4e630be83429e8f5b666db040cd79d8aa75a992
+            tag: Release_5.10.2
+            # commit: b2dfeef58f8845ffadd231875a1576df24917759
             disable-fsckobjects: true
           - type: patch
             paths:
