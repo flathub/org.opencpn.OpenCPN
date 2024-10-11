@@ -19,7 +19,7 @@ index 000000000..846408919
 +export XDG_DATA_DIRS=$XDG_DATA_DIRS:/app/extensions/share
 +export GDK_BACKEND=x11
 +export OPENCPN_PLUGIN_DIRS=/app/extensions/lib/opencpn:/app/lib/opencpn
-+export OPENCPN_COMPAT_TARGET=flatpak:24.08
++export OPENCPN_COMPAT_TARGET=${OPENCPN_COMPAT_TARGET:-flatpak-$(uname -m):24.08}
 +
 +exec opencpn $@
 -- 
