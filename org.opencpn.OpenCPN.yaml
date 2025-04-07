@@ -103,8 +103,8 @@ modules:
     - name: wxGTK3
       sources:
           - type: archive
-            url: https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.4/wxWidgets-3.2.4.tar.bz2
-            sha256: 0640e1ab716db5af2ecb7389dbef6138d7679261fbff730d23845ba838ca133e
+            url:  https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.7/wxWidgets-3.2.7.tar.bz2
+            sha256: 69a1722f874d91cd1c9e742b72df49e0fab02890782cf794791c3104cee868c6
           - type: patch
             paths:
               - patches/0101-Support-EGL-1.4-on-wxGTK.patch
