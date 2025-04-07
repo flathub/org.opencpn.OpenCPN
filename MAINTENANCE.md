@@ -19,7 +19,7 @@ Making a new release
                      path: 0004-flatpak-Add-a-shell-wrapper.patch
 ```
    4. Update the manifest's OCPN\_RELEASE option to reflect actual release
-      (set to 0 when there is a new commit or tag as of above).
+      (set to 1 when there is a new commit or tag as of above).
    5. Commit and push the change to a private fork of flathub/org.opencpn.OpenCPN.
    6. Make PR from the private fork to flathub/org.opencpn.OpenCPN.
    7. Open the PR at https://github.com/flathub/org.opencpn.OpenCPN. A test build
@@ -38,7 +38,9 @@ Making a new release
           OK, push the Publish button, otherwise Delete.
       NOTE: If nothing is done, the test build is eventually automatically
       published after around a week (200 hours).
-  11. Please update this document as required.
+  13  When the build is published, create a new tag on the form flatpak/5.10.2-2
+      and push it
+  14. Please update this document as required.
 
 
 Making a local build

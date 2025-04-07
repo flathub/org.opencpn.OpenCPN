@@ -10,7 +10,7 @@
 
 app-id: org.opencpn.OpenCPN
 runtime: org.freedesktop.Platform
-runtime-version: "24.08"
+runtime-version: "22.08"
 sdk: org.freedesktop.Sdk
 command: opencpn.sh
 
@@ -53,8 +53,8 @@ modules:
       buildsystem: meson
       sources:
         - type: archive
-          url:  https://files.pythonhosted.org/packages/2b/58/d34e67a79631177e3c08e7d02b5165147f590171f2cae6769502af5f7f7e/pygobject-3.50.0.tar.gz
-          sha256: 4500ad3dbf331773d8dedf7212544c999a76fc96b63a91b3dcac1e5925a1d103
+          url: https://files.pythonhosted.org/packages/ac/4a/f24ddf1d20cc4b56affc7921e29928559a06c922eb60077448392792b914/PyGObject-3.46.0.tar.gz
+          sha256: 481437b05af0a66b7c366ea052710eb3aacbb979d22d30b797f7ec29347ab1e6
 
     - name: python-dbus
       sources:
@@ -79,7 +79,6 @@ modules:
             - patches/0011-rapidjson-1.1.0-do_not_include_gtest_src_dir.patch
             - patches/0012-Fix-Wclass-memaccess-warnings-errors.patch
             - patches/0013-gcc7.patch
-            - patches/0014-libs-rapidjson-Add-FTBFS-fix-patch.patch
 
     - name: libusb
       config-opts:
@@ -166,7 +165,7 @@ modules:
       buildsystem: cmake
       builddir: true
       config-opts:
-          - -DOCPN_RELEASE=5
+          - -DOCPN_RELEASE=2
           - -DOCPN_BUNDLE_DOCS=ON
           - -DOCPN_BUNDLE_TCDATA=ON
           - -DOCPN_CI_BUILD=ON
