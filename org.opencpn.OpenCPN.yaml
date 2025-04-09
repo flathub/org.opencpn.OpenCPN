@@ -102,6 +102,7 @@ modules:
         - --prefix=/app
 
     - name: wxGTK3
+      buildsystem: cmake
       sources:
           - type: archive
             url:  https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.7/wxWidgets-3.2.7.tar.bz2
@@ -109,14 +110,6 @@ modules:
           - type: patch
             paths:
               - patches/0101-Support-EGL-1.4-on-wxGTK.patch
-      config-opts:
-          - --with-gtk=3
-          - --with-opengl
-          - --with-sdl
-          - --with-libmspack
-          - --enable-intl
-          - --disable-rpath
-          - --enable-ipv6
       cleanup:
           - /include/
 
