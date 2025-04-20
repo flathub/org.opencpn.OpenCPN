@@ -187,7 +187,8 @@ modules:
           env:
             BUILD_NUMBER: "1"
             CXXFLAGS: -DFLATPAK
-            CFLAGS: -DFLATPAK -Werror
+            # The glu target_compile_options does not work here, hardcoding:
+            CFLAGS: -DFLATPAK -Werror -Wno-array-parameter -Wno-stringop-overflow
       post-install:
           - install -d /app/extensions
           - sed -i '/^Exec=/s/=.*/=opencpn.sh/' /app/share/applications/opencpn.desktop
