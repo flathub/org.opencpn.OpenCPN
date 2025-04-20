@@ -197,7 +197,7 @@ modules:
           - type: git
             url: https://github.com/OpenCPN/OpenCPN.git
             # tag: Release_5.10.2
-            commit: 323810c51a5d5483bb45ce94846ee29f151491c8
+            commit: 85cdda7b654a378cffafa937cd082f04a6449d76
             # gui/libs/include/{text_entry, edit_button}.h: Update docs
             disable-fsckobjects: true
           - type: patch
