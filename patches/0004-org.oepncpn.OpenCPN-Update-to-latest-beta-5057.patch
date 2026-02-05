@@ -1,0 +1,19 @@
+From 5982e12786f136260870475d150a08246e7dd125 Mon Sep 17 00:00:00 2001
+From: Alec Leamas <leamas.alec@gmail.com>
+Date: Thu, 5 Feb 2026 08:24:37 +0100
+Subject: [PATCH] org.oepncpn.OpenCPN: Update to latest beta - #5057
+
+---
+ flatpak/org.opencpn.OpenCPN | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/flatpak/org.opencpn.OpenCPN b/flatpak/org.opencpn.OpenCPN
+index 002d8340b..4c15e836d 160000
+--- a/flatpak/org.opencpn.OpenCPN
++++ b/flatpak/org.opencpn.OpenCPN
+@@ -1 +1 @@
+-Subproject commit 002d8340b5eb9a7388c006e01e46a6a622685d00
++Subproject commit 4c15e836d9ddebb4cb97e19c6f99bbeabe77b6ac
+-- 
+2.52.0
+

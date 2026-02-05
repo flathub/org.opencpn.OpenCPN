@@ -223,3 +223,4 @@ modules:
             paths:
               - patches/0002-flatpak-Add-a-shell-wrapper.patch
               - patches/0003-opencpn.appdata-Add-vcs.browser-url-flathub-linter-w.patch
+              - patches/0004-org.oepncpn.OpenCPN-Update-to-latest-beta-5057.patch
