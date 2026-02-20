@@ -222,3 +222,4 @@ modules:
           - type: patch
             paths:
               - patches/0002-flatpak-Add-a-shell-wrapper.patch
+              - patches/0003-appdata-Drop-yet-not-supported-Donate-url.patch
