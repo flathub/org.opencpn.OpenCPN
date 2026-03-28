@@ -225,11 +225,10 @@ modules:
       sources:
           - type: git
             url: https://github.com/OpenCPN/OpenCPN.git
-            tag: v5.14_Beta3
-            commit: a9f77025a28a180e994e5d490c384db779f34166
+            tag: v5.14_Beta4
+            commit: 4a98463cc6fd3c9e913ce9b02878884cbeca8b72
             # branch: master
             disable-fsckobjects: true
           - type: patch
             paths:
               - patches/0002-flatpak-Add-a-shell-wrapper.patch
-              - patches/0003-appdata-donations-url-typo.patch
