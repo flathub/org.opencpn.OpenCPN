@@ -10,7 +10,7 @@
 
 app-id: org.opencpn.OpenCPN
 runtime: org.freedesktop.Platform
-runtime-version: "24.08"
+runtime-version: "25.08"
 sdk: org.freedesktop.Sdk
 command: opencpn.sh
 
@@ -77,6 +77,7 @@ modules:
         - -DRAPIDJSON_BUILD_DOC=OFF
         - -DRAPIDJSON_BUILD_EXAMPLES=OFF
         - -DRAPIDJSON_BUILD_TESTS=OFF
+        - -DCMAKE_POLICY_VERSION_MINIMUM=3.5 
       sources:
         - type: archive
           url: https://github.com/Tencent/rapidjson/archive/refs/tags/v1.1.0.tar.gz
@@ -88,16 +89,6 @@ modules:
             - patches/0012-Fix-Wclass-memaccess-warnings-errors.patch
             - patches/0013-gcc7.patch
             - patches/0014-libs-rapidjson-Add-FTBFS-fix-patch.patch
-
-    - name: libusb
-      config-opts:
-        - --disable-static
-        - --disable-udev
-        - --prefix=/app
-      sources:
-        - type: archive
-          url: https://github.com/libusb/libusb/archive/v1.0.22.tar.gz
-          sha256: 3500f7b182750cd9ccf9be8b1df998f83df56a39ab264976bdb3307773e16f48
 
     - name: portaudio
       sources:
@@ -113,11 +104,8 @@ modules:
       buildsystem: cmake
       sources:
           - type: archive
-            url:  https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.8/wxWidgets-3.2.8.tar.bz2
-            sha256: c74784904109d7229e6894c85cfa068f1106a4a07c144afd78af41f373ee0fe6
-          - type: patch
-            paths:
-              - patches/0101-Support-EGL-1.4-on-wxGTK.patch
+            url:  https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.9/wxWidgets-3.2.9.tar.bz2
+            sha256: fb90f9538bffd6a02edbf80037a0c14c2baf9f509feac8f76ab2a5e4321f112b
       cleanup:
           - /include/
 
@@ -141,6 +129,7 @@ modules:
           - type: git
             url: https://github.com/google/googletest.git
             tag: release-1.12.1
+            commit: 58d77fa8070e8cec2dc1ed015d66b454c8d78850
 
     - name: shapefile
       buildsystem: cmake
@@ -173,6 +162,16 @@ modules:
           - /sbin/rt*
           - /sbin/ss
           - /sbin/tc
+
+    - name: libusb-0.1
+      config-opts:
+         - --disable-static
+         - --disable-udev
+         - --prefix=/app
+      sources:
+         - type: archive
+           url: https://github.com/libusb/libusb-compat-0.1/archive/refs/tags/v0.1.8.tar.gz
+           sha256: 73f8023b91a4359781c6f1046ae84156e06816aa5c2916ebd76f353d41e0c685
 
     - name: glew2
       no-autogen: true
@@ -226,8 +225,8 @@ modules:
       sources:
           - type: git
             url: https://github.com/OpenCPN/OpenCPN.git
-            tag: Release_5.12.4
-            # commit: d8cab470d2ea209ba90f58b38f622fa290dbd609
+            tag: Release_5.14.0
+            commit: 91f3b674366068a6ecd61a5e9aba204bba85f57e
             # branch: master
             disable-fsckobjects: true
           - type: patch
