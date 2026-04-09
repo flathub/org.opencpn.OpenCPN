@@ -29,6 +29,15 @@ finish-args:
     - --system-talk-name=org.freedesktop.systemd1
     - --system-talk-name=org.freedesktop.login1
     - --filesystem=host-etc:ro
+cleanup:
+    - /include
+    - /lib/cmake
+    - /lib/pkgconfig
+    - /share/bash-completion
+    - /share/doc
+    - /share/man
+    - '*.la'
+    - '*.a'
 
 add-extensions:
     org.opencpn.OpenCPN.Plugin:
@@ -45,11 +54,6 @@ modules:
         - type: archive
           url: https://archive.mesa3d.org/glu/glu-9.0.3.tar.xz
           sha256: bd43fe12f374b1192eb15fe20e45ff456b9bc26ab57f0eee919f96ca0f8a330f
-      cleanup:
-        - /lib/*.a
-        - /lib/*.la
-        - /lib/pkgconfig
-
     - name: pycairo
       buildsystem: meson
       sources:
@@ -102,12 +106,14 @@ modules:
 
     - name: wxGTK3
       buildsystem: cmake
+      cleanup:
+          - /bin
+          - /share
+          - /lib/wx
       sources:
           - type: archive
             url:  https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.9/wxWidgets-3.2.9.tar.bz2
             sha256: fb90f9538bffd6a02edbf80037a0c14c2baf9f509feac8f76ab2a5e4321f112b
-      cleanup:
-          - /include/
 
     - name: portaudio
       config-opts:
@@ -118,10 +124,6 @@ modules:
           - type: archive
             url: http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz
             sha256: f5a21d7dcd6ee84397446fa1fa1a0675bb2e8a4a6dceb4305a8404698d8d1513
-      cleanup:
-          - /lib/pkgconfig
-          - /include
-          - '*.la'
 
     - name: gtest
       buildsystem: cmake
@@ -133,6 +135,8 @@ modules:
 
     - name: shapefile
       buildsystem: cmake
+      cleanup:
+          - /share
       sources:
           - type: archive
             url: https://download.osgeo.org/shapelib/shapelib-1.6.1.tar.gz
@@ -143,25 +147,17 @@ modules:
               - patches/0022-cmake-Make-BUILD_TESTING-an-option.patch
 
     - name: iproute2
-      buildsystem: simple
-      build-commands:
-          -  make
-          -  make DESTDIR=/app install
+      buildsystem: autotools
+      make-install-args:
+          - PREFIX=${FLATPAK_DEST}
+          - SBINDIR=${FLATPAK_DEST}/sbin
+          - CONFDIR=${FLATPAK_DEST}/etc/iproute2
+      cleanup:
+          - /sbin
       sources:
           - type: archive
             url:  https://kernel.org/pub/linux/utils/net/iproute2/iproute2-6.6.0.tar.gz
             sha256: 1e6871720d85461d9f175843fdeb659448cd4f74de180ccc95a6f3b0b7e39f0a
-      cleanup:
-          - /lib/pkgconfig
-          - /include
-          - /share/man
-          - /sbin/*stat
-          - /sbin/bridge
-          - /sbin/genl
-          - /sbin/routel
-          - /sbin/rt*
-          - /sbin/ss
-          - /sbin/tc
 
     - name: libusb-0.1
       config-opts:
@@ -192,8 +188,6 @@ modules:
         - LIBDIR=${FLATPAK_DEST}/lib
         - CFLAGS.EXTRA:=${CFLAGS} -fPIC
         - LDFLAGS.EXTRA=${LDFLAGS}
-      cleanup:
-        - /lib/pkgconfig
 
     - name: opencpn
       buildsystem: cmake
