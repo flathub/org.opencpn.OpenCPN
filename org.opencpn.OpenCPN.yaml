@@ -147,10 +147,11 @@ modules:
               - patches/0022-cmake-Make-BUILD_TESTING-an-option.patch
 
     - name: iproute2
-      buildsystem: simple
-      build-commands:
-          -  make
-          -  make DESTDIR=/app install
+      buildsystem: autotools
+      make-install-args:
+          - PREFIX=${FLATPAK_DEST}
+          - SBINDIR=${FLATPAK_DEST}/sbin
+          - CONFDIR=${FLATPAK_DEST}/etc/iproute2
       cleanup:
           - /sbin
       sources:
