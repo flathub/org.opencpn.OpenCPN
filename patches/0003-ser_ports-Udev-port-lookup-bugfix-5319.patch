@@ -1,0 +1,29 @@
+From ee53710f10f8e534736cb5264782f72f3ab8e20f Mon Sep 17 00:00:00 2001
+From: Alec Leamas <leamas.alec@gmail.com>
+Date: Fri, 17 Jul 2026 12:48:23 +0200
+Subject: [PATCH] ser_ports: Udev port lookup bugfix - #5319
+
+Closes: #5319
+---
+ model/src/ser_ports.cpp | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/model/src/ser_ports.cpp b/model/src/ser_ports.cpp
+index 60d18e85b..a0638ee6a 100644
+--- a/model/src/ser_ports.cpp
++++ b/model/src/ser_ports.cpp
+@@ -246,8 +246,9 @@ static std::vector<struct symlink> get_all_links() {
+                  strerror(errno));
+     } else if (S_ISLNK(buf.st_mode)) {
+       char buff[PATH_MAX + 1];
+-      assert(readlink(path.c_str(), buff, PATH_MAX) >= 0);
+-      std::string target(buff);
++      ssize_t size = readlink(path.c_str(), buff, PATH_MAX);
++      assert(size > 0 && size < PATH_MAX);
++      std::string target(buff, size);
+       struct symlink link(path.c_str(), prefix + target);
+       links.push_back(link);
+     }
+-- 
+2.54.0
+
