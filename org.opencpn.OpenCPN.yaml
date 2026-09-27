@@ -106,8 +106,7 @@ modules:
           - type: archive
             url:  https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.9/wxWidgets-3.2.9.tar.bz2
             sha256: fb90f9538bffd6a02edbf80037a0c14c2baf9f509feac8f76ab2a5e4321f112b
-      cleanup:
-          - /include/
+      # Headers are required when building plugins, cannot be cleaned.
 
     - name: portaudio
       config-opts:
@@ -195,6 +194,15 @@ modules:
       cleanup:
         - /lib/pkgconfig
 
+    - name: nlohmann-json
+      buildsystem: cmake
+      sources:
+          - type: archive
+            url: https://github.com/nlohmann/json/archive/refs/tags/v3.12.0.tar.gz
+            sha256: 4b92eb0c06d10683f7447ce9406cb97cd4b453be18d7279320f7b2f025c10187
+      config-opts:
+          - -DJSON_BuildTests=OFF
+
     - name: opencpn
       buildsystem: cmake
       builddir: true
@@ -225,8 +233,8 @@ modules:
       sources:
           - type: git
             url: https://github.com/OpenCPN/OpenCPN.git
-            tag: Release_5.14.0
-            commit: 91f3b674366068a6ecd61a5e9aba204bba85f57e
+            tag: Release_5.14.2
+            commit: bd6986a0854d89c662a3d3cab011e629337fcb88
             # branch: master
             disable-fsckobjects: true
           - type: patch
